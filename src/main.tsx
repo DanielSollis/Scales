@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.css";
 import ListGroup from "./components/ListGroup.tsx";
+import Button from "./components/Button.tsx";
 
 let items = ["Ibanez", "Martin", "Les Paul"];
 
@@ -16,5 +17,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       heading={"Guitar Stuff"}
       onSelectItem={handleSelectItem}
     />
+    <Button onClick={() => console.log("NO!")}>Bass</Button>
   </React.StrictMode>
 );
