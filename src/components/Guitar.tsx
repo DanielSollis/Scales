@@ -19,7 +19,7 @@ function create_guitar_string(
 ): string[] {
   let res: string[] = [startingNote];
 
-  for (let i = 0; i < stringLength; i++) {
+  for (let i = 0; i < stringLength - 1; i++) {
     let last_note: string = res[res.length - 1];
     let next_note = note_mapping.get(last_note);
     if (next_note) {
@@ -39,7 +39,11 @@ const Guitar = () => {
         {strings.map((val, index) => {
           return (
             <tr key={index}>
-              <td>{val}</td>
+              <td>
+                {create_guitar_string(val, 12).map((fret_val) => {
+                  return <td>{fret_val}</td>;
+                })}
+              </td>
             </tr>
           );
         })}
