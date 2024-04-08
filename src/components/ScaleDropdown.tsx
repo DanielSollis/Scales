@@ -14,9 +14,7 @@ const ScaleDropdown = function () {
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-        {scales[scaleIndex]}
-      </Dropdown.Toggle>
+      <Dropdown.Toggle variant="dark">{scales[scaleIndex]}</Dropdown.Toggle>
 
       <Dropdown.Menu>
         {scales.map(function (val, index) {
