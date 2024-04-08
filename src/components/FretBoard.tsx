@@ -32,19 +32,19 @@ function create_guitar_string(
 
 const strings = ["E", "A", "D", "G", "B", "E"];
 
-const Guitar = () => {
+const FretBoard = function () {
   return (
     <div className="guitar">
-      <table>
-        {strings.map((val, index) => {
+      <table className="table table-dark">
+        {strings.map(function (val, index) {
           return (
-            <tr key={index}>
-              <td>
-                {create_guitar_string(val, 12).map((fret_val) => {
+            <thead>
+              <tr key={index}>
+                {create_guitar_string(val, 12).map(function (fret_val) {
                   return <td>{fret_val}</td>;
                 })}
-              </td>
-            </tr>
+              </tr>
+            </thead>
           );
         })}
       </table>
@@ -52,4 +52,4 @@ const Guitar = () => {
   );
 };
 
-export default Guitar;
+export default FretBoard;

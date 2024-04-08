@@ -5,7 +5,7 @@ interface Props {
   color?: "primary" | "secondary";
 }
 
-const Button = ({ children, color = "primary" }: Props) => {
+const Button = function ({ children, color = "primary" }: Props) {
   const [alertActive, setAlertActive] = useState(-1);
 
   return (
@@ -14,14 +14,16 @@ const Button = ({ children, color = "primary" }: Props) => {
         <div
           className="alert alert-primary"
           role="alert"
-          onClick={() => setAlertActive(0)}
+          onClick={function () {
+            setAlertActive(0);
+          }}
         >
           Alert!
         </div>
       )}
       <button
         className={"btn btn-" + color}
-        onClick={() => {
+        onClick={function () {
           setAlertActive(1);
           console.log(alertActive);
         }}
