@@ -1,16 +1,21 @@
 import Dropdown from "react-bootstrap/Dropdown";
+import { useState } from "react";
+
+const scales = ["C Major", "D Minor", "E Minor"];
 
 const ScaleDropdown = function () {
+  const [scaleIndex, setScaleIndex] = useState(0);
+
   return (
     <Dropdown>
       <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-        Dropdown Button
+        {scales[scaleIndex]}
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#/action-2">C Major</Dropdown.Item>
-        <Dropdown.Item href="#/action-1">E Minor</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">D Minor</Dropdown.Item>
+        {scales.map(function (val) {
+          return <Dropdown.Item>{val}</Dropdown.Item>;
+        })}
       </Dropdown.Menu>
     </Dropdown>
   );

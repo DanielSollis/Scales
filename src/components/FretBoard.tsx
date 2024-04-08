@@ -35,13 +35,14 @@ const strings = ["E", "A", "D", "G", "B", "E"];
 const FretBoard = function () {
   return (
     <div className="guitar">
-      <table className="table table-dark">
+      <table className="table table-dark table-bordered equal-width-table">
+        <style>{`.equal-width-table td {width: 1%;}`}</style>
         {strings.map(function (val, index) {
           return (
             <thead>
               <tr key={index}>
                 {create_guitar_string(val, 12).map(function (fret_val) {
-                  return <td>{fret_val}</td>;
+                  return <td className="text-center">{fret_val}</td>;
                 })}
               </tr>
             </thead>
