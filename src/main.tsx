@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import FretBoard from "./components/FretBoard.tsx";
 import ScaleDropdown from "./components/ScaleDropdown.tsx";
@@ -19,10 +19,20 @@ const FretNums = function () {
   );
 };
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <FretBoard></FretBoard>
-    <FretNums></FretNums>
-    <ScaleDropdown></ScaleDropdown>
-  </React.StrictMode>
-);
+const App = function () {
+  const [scaleIndex, setScaleIndex] = useState(0);
+  return (
+    <>
+      <React.StrictMode>
+        <FretBoard scaleIndex={scaleIndex}></FretBoard>
+        <FretNums></FretNums>
+        <ScaleDropdown
+          scaleIndex={scaleIndex}
+          setScaleIndex={setScaleIndex}
+        ></ScaleDropdown>
+      </React.StrictMode>
+    </>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")!).render(<App></App>);

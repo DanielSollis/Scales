@@ -1,6 +1,6 @@
 import Table from "react-bootstrap/Table";
 
-const note_mapping = new Map<string, string>([
+const noteMapping = new Map<string, string>([
   ["E", "F"],
   ["F", "F#"],
   ["F#", "G"],
@@ -20,7 +20,7 @@ function guitarString(startingNote: string, stringLength: number): string[] {
 
   for (let i = 0; i < stringLength - 1; i++) {
     const lastNote = res[res.length - 1];
-    const nextNote = note_mapping.get(lastNote);
+    const nextNote = noteMapping.get(lastNote);
     if (nextNote) {
       res.push(nextNote);
     }
@@ -32,17 +32,27 @@ function guitarString(startingNote: string, stringLength: number): string[] {
 const strings = ["E", "A", "D", "G", "B", "E"];
 const stringLength = 12;
 
-const FretBoard = function () {
+const scales = [
+  new Set(["A", "B", "C", "D", "E", "F", "G"]),
+  new Set(["D", "E", "F", "G", "A", "A#", "C"]),
+  new Set(["E", "F♯", "G", "A", "B", "C", "D"]),
+];
+
+interface props {
+  scaleIndex: number;
+}
+
+const FretBoard = function (props: props) {
   return (
     <Table bordered variant="dark">
       {strings.map(function (string) {
         return (
           <thead>
             <tr>
-              {guitarString(string, stringLength).map(function (fret) {
+              {guitarString(string, stringLength).map(function (note) {
                 return (
                   <td className="text-center" width="1%">
-                    {fret}
+                    {scales[props.scaleIndex].has(note) ? note : " "}
                   </td>
                 );
               })}

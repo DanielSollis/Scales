@@ -1,20 +1,25 @@
+import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import { useState } from "react";
 
 const scales = ["C Major", "D Minor", "E Minor"];
 
-const ScaleDropdown = function () {
-  const [scaleIndex, setScaleIndex] = useState(0);
+interface props {
+  scaleIndex: number;
+  setScaleIndex: React.Dispatch<React.SetStateAction<number>>;
+}
 
+const ScaleDropdown = function (props: props) {
   const onSelect = function (index: number) {
     return function () {
-      setScaleIndex(index);
+      props.setScaleIndex(index);
     };
   };
 
   return (
     <Dropdown>
-      <Dropdown.Toggle variant="dark">{scales[scaleIndex]}</Dropdown.Toggle>
+      <Dropdown.Toggle variant="dark">
+        {scales[props.scaleIndex]}
+      </Dropdown.Toggle>
 
       <Dropdown.Menu>
         {scales.map(function (val, index) {
