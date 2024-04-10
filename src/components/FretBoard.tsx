@@ -15,27 +15,31 @@ const noteMapping = new Map<string, string>([
   ["D#", "E"],
 ]);
 
-function guitarString(startingNote: string, stringLength: number): string[] {
-  let res: string[] = [startingNote];
+function guitarString(string: string, stringLength: number): string[] {
+  const startingNote = noteMapping.get(string);
+  if (startingNote) {
+    let res: string[] = [startingNote];
 
-  for (let i = 0; i < stringLength - 1; i++) {
-    const lastNote = res[res.length - 1];
-    const nextNote = noteMapping.get(lastNote);
-    if (nextNote) {
-      res.push(nextNote);
+    for (let i = 0; i < stringLength - 1; i++) {
+      const lastNote = res[res.length - 1];
+      const nextNote = noteMapping.get(lastNote);
+      if (nextNote) {
+        res.push(nextNote);
+      }
     }
+    return res;
   }
-
+  let res: string[] = [];
   return res;
 }
 
-const strings = ["E", "A", "D", "G", "B", "E"];
+const strings = ["E", "A", "D", "G", "B", "E"].reverse();
 const stringLength = 12;
 
 const scales = [
-  new Set(["A", "B", "C", "D", "E", "F", "G"]),
-  new Set(["D", "E", "F", "G", "A", "A#", "C"]),
-  new Set(["E", "F♯", "G", "A", "B", "C", "D"]),
+  new Set(["A", "B", "C", "D", "E", "F", "G"]), // C Major
+  new Set(["D", "E", "F", "G", "A", "A#", "C"]), // D Minor
+  new Set(["E", "F#", "G", "A", "B", "C", "D"]), // E Minor
 ];
 
 interface props {
@@ -52,7 +56,7 @@ const FretBoard = function (props: props) {
               {guitarString(string, stringLength).map(function (note) {
                 return (
                   <td className="text-center" width="1%">
-                    {scales[props.scaleIndex].has(note) ? note : " "}
+                    {scales[props.scaleIndex].has(note) ? note : ""}
                   </td>
                 );
               })}
