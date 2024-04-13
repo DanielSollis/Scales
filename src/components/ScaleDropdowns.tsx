@@ -41,7 +41,7 @@ const ScaleDropdown = function (props: props) {
       <Dropdown>
         <Dropdown.Toggle variant="secondary">{props.scale}</Dropdown.Toggle>
         <Dropdown.Menu>
-          {scales.map(function (scale, _) {
+          {scales.map(function (scale) {
             return (
               <Dropdown.Item onClick={onScaleSelect(scale)}>
                 {scale}

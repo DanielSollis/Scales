@@ -17,7 +17,7 @@ interface props {
 }
 
 const FretBoard = function (props: props) {
-  const scale = scalePattern.get(props.scale) as number[];
+  const scaleSteps = scalePattern.get(props.scale) as number[];
 
   return (
     <Table bordered variant="dark">
@@ -27,7 +27,7 @@ const FretBoard = function (props: props) {
           <thead>
             <tr>
               {currentString.map(function (note) {
-                const notes = scaleNotes(props.root, scale);
+                const notes = scaleNotes(props.root, scaleSteps);
                 return (
                   <td className="text-center" width="1%">
                     {notes.has(note) ? note : ""}
@@ -57,21 +57,15 @@ const nextNoteMap = new Map<string, string>([
   ["D#", "E"],
 ]);
 
-function scaleNotes(root: string, scalePattern: number[]) {
+function scaleNotes(root: string, scaleSteps: number[]) {
   const notes = [root];
-  for (let i = 0; i < scalePattern.length; i++) {
-    const lastNote = notes[notes.length - 1];
-    const halfStep = nextNoteMap.get(lastNote) as string;
-    if (scalePattern[i] === half) {
-      notes.push(halfStep);
-    } else if (scalePattern[i] === whole) {
-      const wholestep = nextNoteMap.get(halfStep) as string;
-      notes.push(wholestep);
-    } else {
-      const wholestep = nextNoteMap.get(halfStep) as string;
-      const wholeAndHalfstep = nextNoteMap.get(wholestep) as string;
-      notes.push(wholeAndHalfstep);
+
+  for (let i = 0; i < scaleSteps.length; i++) {
+    let nextnote = notes[notes.length - 1];
+    for (let step = 0; step < scaleSteps[i]; step++) {
+      nextnote = nextNoteMap.get(nextnote) as string;
     }
+    notes.push(nextnote);
   }
   let result = new Set(notes);
   return result;
