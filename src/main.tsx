@@ -8,23 +8,23 @@ import "bootstrap/dist/css/bootstrap.css";
 const stringLength = 12;
 
 const App = function () {
-  const [root, setRoot] = useState("C");
-  const [currentScale, setCurrentScale] = useState("Major");
+  const [startingRoot, setRoot] = useState("C");
+  const [startingScale, setScale] = useState("Major");
 
   return (
     <React.StrictMode>
       <div className="bg-dark text-white min-vh-100">
         <FretBoard
-          root={root}
-          currentScale={currentScale}
+          root={startingRoot}
+          scale={startingScale}
           stringLength={stringLength}
         ></FretBoard>
         <FretNums stringLength={stringLength}></FretNums>
         <ScaleDropdowns
-          root={root}
+          root={startingRoot}
           setRoot={setRoot}
-          currentScale={currentScale}
-          setCurrentScale={setCurrentScale}
+          scale={startingScale}
+          setScale={setScale}
         ></ScaleDropdowns>
       </div>
     </React.StrictMode>

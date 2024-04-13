@@ -6,8 +6,8 @@ const scales = ["Major", "Minor"];
 const notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
 
 interface props {
-  currentScale: string;
-  setCurrentScale: React.Dispatch<React.SetStateAction<string>>;
+  scale: string;
+  setScale: React.Dispatch<React.SetStateAction<string>>;
   root: string;
   setRoot: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -15,7 +15,7 @@ interface props {
 const ScaleDropdown = function (props: props) {
   const onScaleSelect = function (scale: string) {
     return function () {
-      props.setCurrentScale(scale);
+      props.setScale(scale);
     };
   };
 
@@ -39,9 +39,7 @@ const ScaleDropdown = function (props: props) {
       </Dropdown>
 
       <Dropdown>
-        <Dropdown.Toggle variant="secondary">
-          {props.currentScale}
-        </Dropdown.Toggle>
+        <Dropdown.Toggle variant="secondary">{props.scale}</Dropdown.Toggle>
         <Dropdown.Menu>
           {scales.map(function (scale, _) {
             return (

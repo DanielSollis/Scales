@@ -10,12 +10,12 @@ const scalePattern = new Map<string, number[]>([
 
 interface props {
   root: string;
-  currentScale: string;
+  scale: string;
   stringLength: number;
 }
 
 const FretBoard = function (props: props) {
-  const scale = scalePattern.get(props.currentScale) as number[];
+  const scale = scalePattern.get(props.scale) as number[];
 
   return (
     <Table bordered variant="dark">
@@ -40,7 +40,7 @@ const FretBoard = function (props: props) {
   );
 };
 
-const noteMapping = new Map<string, string>([
+const nextNoteMap = new Map<string, string>([
   ["E", "F"],
   ["F", "F#"],
   ["F#", "G"],
@@ -59,12 +59,12 @@ function scaleNotes(root: string, scalePattern: number[]) {
   const notes = [root];
   for (let i = 0; i < scalePattern.length; i++) {
     const lastNote = notes[notes.length - 1];
-    const first = noteMapping.get(lastNote) as string;
-    if (scalePattern[i] === 1) {
-      notes.push(first);
+    const halfStep = nextNoteMap.get(lastNote) as string;
+    if (scalePattern[i] === half) {
+      notes.push(halfStep);
     } else {
-      const second = noteMapping.get(first) as string;
-      notes.push(second);
+      const wholestep = nextNoteMap.get(halfStep) as string;
+      notes.push(wholestep);
     }
   }
   let result = new Set(notes);
@@ -72,12 +72,12 @@ function scaleNotes(root: string, scalePattern: number[]) {
 }
 
 function guitarString(string: string, stringLength: number): string[] {
-  const startingNote = noteMapping.get(string) as string;
+  const startingNote = nextNoteMap.get(string) as string;
   let res: string[] = [startingNote];
 
   for (let i = 0; i < stringLength - 1; i++) {
     const lastNote = res[res.length - 1];
-    const nextNote = noteMapping.get(lastNote) as string;
+    const nextNote = nextNoteMap.get(lastNote) as string;
     res.push(nextNote);
   }
   return res;
