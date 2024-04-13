@@ -1,5 +1,45 @@
 import Table from "react-bootstrap/Table";
 
+const strings = ["E", "A", "D", "G", "B", "E"].reverse();
+
+const stringLength = 12;
+
+const half = 1;
+const whole = 2;
+const scalePattern = new Map<string, number[]>([
+  ["Major", [whole, whole, half, whole, whole, whole, half]],
+  ["Minor", [whole, half, whole, whole, half, whole, whole]],
+]);
+
+interface props {
+  root: string;
+  currentScale: string;
+}
+
+const FretBoard = function (props: props) {
+  const scale = scalePattern.get(props.currentScale) as number[];
+
+  return (
+    <Table bordered variant="dark">
+      {strings.map(function (string) {
+        return (
+          <thead>
+            <tr>
+              {guitarString(string, stringLength).map(function (note) {
+                return (
+                  <td className="text-center" width="1%">
+                    {scaleNotes(props.root, scale) ? note : ""}
+                  </td>
+                );
+              })}
+            </tr>
+          </thead>
+        );
+      })}
+    </Table>
+  );
+};
+
 const noteMapping = new Map<string, string>([
   ["E", "F"],
   ["F", "F#"],
@@ -14,6 +54,24 @@ const noteMapping = new Map<string, string>([
   ["D", "D#"],
   ["D#", "E"],
 ]);
+
+function scaleNotes(root: string, scalePattern: number[]) {
+  const notes = [root];
+  for (let i = 0; i < scalePattern.length; i++) {
+    const first = noteMapping.get(notes[notes.length - 1]);
+    if (first) {
+      if (scalePattern[i] === 1) {
+        notes.push(first);
+      } else {
+        const second = noteMapping.get(first);
+        if (second) {
+          notes.push(second);
+        }
+      }
+    }
+  }
+  return new Set(notes);
+}
 
 function guitarString(string: string, stringLength: number): string[] {
   const startingNote = noteMapping.get(string);
@@ -32,40 +90,5 @@ function guitarString(string: string, stringLength: number): string[] {
   let res: string[] = [];
   return res;
 }
-
-const strings = ["E", "A", "D", "G", "B", "E"].reverse();
-const stringLength = 12;
-
-const scales = [
-  new Set(["A", "B", "C", "D", "E", "F", "G"]), // C Major
-  new Set(["D", "E", "F", "G", "A", "A#", "C"]), // D Minor
-  new Set(["E", "F#", "G", "A", "B", "C", "D"]), // E Minor
-];
-
-interface props {
-  scaleIndex: number;
-}
-
-const FretBoard = function (props: props) {
-  return (
-    <Table bordered variant="dark">
-      {strings.map(function (string) {
-        return (
-          <thead>
-            <tr>
-              {guitarString(string, stringLength).map(function (note) {
-                return (
-                  <td className="text-center" width="1%">
-                    {scales[props.scaleIndex].has(note) ? note : ""}
-                  </td>
-                );
-              })}
-            </tr>
-          </thead>
-        );
-      })}
-    </Table>
-  );
-};
 
 export default FretBoard;

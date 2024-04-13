@@ -20,15 +20,18 @@ const FretNums = function () {
 };
 
 const App = function () {
-  const [scaleIndex, setScaleIndex] = useState(0);
+  const [root, setRoot] = useState("C");
+  const [currentScale, setCurrentScale] = useState("Major");
   return (
     <>
       <React.StrictMode>
-        <FretBoard scaleIndex={scaleIndex}></FretBoard>
+        <FretBoard root={root} currentScale={currentScale}></FretBoard>
         <FretNums></FretNums>
         <ScaleDropdown
-          scaleIndex={scaleIndex}
-          setScaleIndex={setScaleIndex}
+          root={root}
+          setRoot={setRoot}
+          currentScale={currentScale}
+          setCurrentScale={setCurrentScale}
         ></ScaleDropdown>
       </React.StrictMode>
     </>
