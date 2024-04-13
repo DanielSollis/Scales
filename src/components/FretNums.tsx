@@ -9,10 +9,10 @@ const FretNums = function (props: props) {
 
   return (
     <Table bordered>
-      {numbers.map(function (_, index) {
+      {numbers.map(function (_, fretInx) {
         return (
           <td className="text-center" width="1%">
-            {index + 1}
+            {fretInx + 1}
           </td>
         );
       })}

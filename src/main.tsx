@@ -5,11 +5,10 @@ import FretNums from "./components/FretNums.tsx";
 import ScaleDropdowns from "./components/ScaleDropdowns.tsx";
 import "bootstrap/dist/css/bootstrap.css";
 
-const stringLength = 12;
-
 const App = function () {
   const [startingRoot, setRoot] = useState("C");
   const [startingScale, setScale] = useState("Major");
+  const [stringLength, setStringLength] = useState(12);
 
   return (
     <React.StrictMode>
@@ -19,12 +18,15 @@ const App = function () {
           scale={startingScale}
           stringLength={stringLength}
         ></FretBoard>
+
         <FretNums stringLength={stringLength}></FretNums>
+
         <ScaleDropdowns
           root={startingRoot}
           setRoot={setRoot}
           scale={startingScale}
           setScale={setScale}
+          setStringLength={setStringLength}
         ></ScaleDropdowns>
       </div>
     </React.StrictMode>
