@@ -28,7 +28,7 @@ const FretBoard = function (props: props) {
               {guitarString(string, stringLength).map(function (note) {
                 return (
                   <td className="text-center" width="1%">
-                    {scaleNotes(props.root, scale) ? note : ""}
+                    {scaleNotes(props.root, scale).has(note) ? note : ""}
                   </td>
                 );
               })}
@@ -70,7 +70,9 @@ function scaleNotes(root: string, scalePattern: number[]) {
       }
     }
   }
-  return new Set(notes);
+  let result = new Set(notes);
+  console.log(result);
+  return result;
 }
 
 function guitarString(string: string, stringLength: number): string[] {
