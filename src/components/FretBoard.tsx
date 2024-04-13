@@ -1,7 +1,6 @@
 import Table from "react-bootstrap/Table";
 
 const strings = ["E", "A", "D", "G", "B", "E"].reverse();
-const stringLength = 12;
 
 const [half, whole] = [1, 2];
 const scalePattern = new Map<string, number[]>([
@@ -12,6 +11,7 @@ const scalePattern = new Map<string, number[]>([
 interface props {
   root: string;
   currentScale: string;
+  stringLength: number;
 }
 
 const FretBoard = function (props: props) {
@@ -20,7 +20,7 @@ const FretBoard = function (props: props) {
   return (
     <Table bordered variant="dark">
       {strings.map(function (string) {
-        const currentString = guitarString(string, stringLength);
+        const currentString = guitarString(string, props.stringLength);
         return (
           <thead>
             <tr>
@@ -58,7 +58,8 @@ const noteMapping = new Map<string, string>([
 function scaleNotes(root: string, scalePattern: number[]) {
   const notes = [root];
   for (let i = 0; i < scalePattern.length; i++) {
-    const first = noteMapping.get(notes[notes.length - 1]) as string;
+    const lastNote = notes[notes.length - 1];
+    const first = noteMapping.get(lastNote) as string;
     if (scalePattern[i] === 1) {
       notes.push(first);
     } else {
@@ -67,7 +68,6 @@ function scaleNotes(root: string, scalePattern: number[]) {
     }
   }
   let result = new Set(notes);
-  console.log(result);
   return result;
 }
 
