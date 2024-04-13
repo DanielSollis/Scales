@@ -2,10 +2,12 @@ import Table from "react-bootstrap/Table";
 
 const strings = ["E", "A", "D", "G", "B", "E"].reverse();
 
-const [half, whole] = [1, 2];
+const [half, whole, WholeAndHalf] = [1, 2, 3];
 const scalePattern = new Map<string, number[]>([
   ["Major", [whole, whole, half, whole, whole, whole, half]],
   ["Minor", [whole, half, whole, whole, half, whole, whole]],
+  ["Major Pentatonic", [whole, whole, WholeAndHalf, whole, WholeAndHalf]],
+  ["Minor Pentatonic", [WholeAndHalf, whole, whole, WholeAndHalf, whole]],
 ]);
 
 interface props {
@@ -25,7 +27,7 @@ const FretBoard = function (props: props) {
           <thead>
             <tr>
               {currentString.map(function (note) {
-                const notes: Set<string> = scaleNotes(props.root, scale);
+                const notes = scaleNotes(props.root, scale);
                 return (
                   <td className="text-center" width="1%">
                     {notes.has(note) ? note : ""}
@@ -62,9 +64,13 @@ function scaleNotes(root: string, scalePattern: number[]) {
     const halfStep = nextNoteMap.get(lastNote) as string;
     if (scalePattern[i] === half) {
       notes.push(halfStep);
-    } else {
+    } else if (scalePattern[i] === whole) {
       const wholestep = nextNoteMap.get(halfStep) as string;
       notes.push(wholestep);
+    } else {
+      const wholestep = nextNoteMap.get(halfStep) as string;
+      const wholeAndHalfstep = nextNoteMap.get(wholestep) as string;
+      notes.push(wholeAndHalfstep);
     }
   }
   let result = new Set(notes);
@@ -73,7 +79,7 @@ function scaleNotes(root: string, scalePattern: number[]) {
 
 function guitarString(string: string, stringLength: number): string[] {
   const startingNote = nextNoteMap.get(string) as string;
-  let res: string[] = [startingNote];
+  let res = [startingNote];
 
   for (let i = 0; i < stringLength - 1; i++) {
     const lastNote = res[res.length - 1];

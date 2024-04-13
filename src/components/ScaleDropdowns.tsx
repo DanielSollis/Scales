@@ -1,7 +1,7 @@
 import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
-const scales = ["Major", "Minor"];
+const scales = ["Major", "Minor", "Major Pentatonic", "Minor Pentatonic"];
 
 const notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
 
