@@ -26,9 +26,9 @@ const ScaleDropdown = function (props: props) {
   };
 
   return (
-    <>
+    <div style={{ display: "flex" }}>
       <Dropdown>
-        <Dropdown.Toggle variant="dark">{props.root}</Dropdown.Toggle>
+        <Dropdown.Toggle variant="secondary">{props.root}</Dropdown.Toggle>
         <Dropdown.Menu>
           {notes.map(function (note) {
             return (
@@ -39,7 +39,9 @@ const ScaleDropdown = function (props: props) {
       </Dropdown>
 
       <Dropdown>
-        <Dropdown.Toggle variant="dark">{props.currentScale}</Dropdown.Toggle>
+        <Dropdown.Toggle variant="secondary">
+          {props.currentScale}
+        </Dropdown.Toggle>
         <Dropdown.Menu>
           {scales.map(function (scale, _) {
             return (
@@ -50,7 +52,7 @@ const ScaleDropdown = function (props: props) {
           })}
         </Dropdown.Menu>
       </Dropdown>
-    </>
+    </div>
   );
 };
 

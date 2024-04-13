@@ -23,8 +23,8 @@ const App = function () {
   const [root, setRoot] = useState("C");
   const [currentScale, setCurrentScale] = useState("Major");
   return (
-    <>
-      <React.StrictMode>
+    <React.StrictMode>
+      <div className="bg-dark text-white min-vh-100">
         <FretBoard root={root} currentScale={currentScale}></FretBoard>
         <FretNums></FretNums>
         <ScaleDropdown
@@ -33,8 +33,8 @@ const App = function () {
           currentScale={currentScale}
           setCurrentScale={setCurrentScale}
         ></ScaleDropdown>
-      </React.StrictMode>
-    </>
+      </div>
+    </React.StrictMode>
   );
 };
 
