@@ -1,9 +1,9 @@
 import React, { useState } from "react";
+import Container from "react-bootstrap/Container";
 import ReactDOM from "react-dom/client";
 import FretBoard from "./components/FretBoard.tsx";
 import FretNums from "./components/FretNums.tsx";
 import ScaleDropdowns from "./components/ScaleDropdowns.tsx";
-import "bootstrap/dist/css/bootstrap.css";
 
 const App = function () {
   const [startingRoot, setRoot] = useState("C");
@@ -12,7 +12,7 @@ const App = function () {
 
   return (
     <React.StrictMode>
-      <div className="bg-dark text-white min-vh-100">
+      <Container fluid className="bg-dark text-white min-vh-100">
         <FretBoard
           root={startingRoot}
           scale={startingScale}
@@ -28,7 +28,7 @@ const App = function () {
           setScale={setScale}
           setStringLength={setStringLength}
         ></ScaleDropdowns>
-      </div>
+      </Container>
     </React.StrictMode>
   );
 };
