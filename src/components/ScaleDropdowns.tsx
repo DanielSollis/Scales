@@ -2,7 +2,6 @@ import React from "react";
 import Dropdown from "react-bootstrap/Dropdown";
 
 const scales = ["Major", "Minor", "Major Pentatonic", "Minor Pentatonic"];
-
 const notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
 
 interface props {
@@ -70,7 +69,7 @@ const ScaleDropdown = function (props: props) {
       </div>
 
       <Dropdown>
-        <Dropdown.Toggle variant="secondary">String Length</Dropdown.Toggle>
+        <Dropdown.Toggle variant="secondary">Neck Length</Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item onClick={onStringLengthSelect(12)}>Half</Dropdown.Item>
           <Dropdown.Item onClick={onStringLengthSelect(24)}>Full</Dropdown.Item>
