@@ -18,27 +18,40 @@ interface props {
 
 const FretBoard = function (props: props) {
   const scaleSteps = scalePattern.get(props.scale) as number[];
+  const fretNumbers = [...Array(props.stringLength)];
 
   return (
-    <Table bordered variant="dark">
-      {strings.map(function (string) {
-        const currentString = guitarString(string, props.stringLength);
-        return (
-          <thead>
-            <tr>
-              {currentString.map(function (note) {
-                const notes = scaleNotes(props.root, scaleSteps);
-                return (
-                  <td className="text-center" width="1%">
-                    {notes.has(note) ? note : ""}
-                  </td>
-                );
-              })}
-            </tr>
-          </thead>
-        );
-      })}
-    </Table>
+    <div>
+      <Table bordered variant="dark">
+        {strings.map(function (string) {
+          const currentString = getNotesInString(string, props.stringLength);
+          return (
+            <thead>
+              <tr>
+                {currentString.map(function (note) {
+                  const notesInScale = getNotesInScale(props.root, scaleSteps);
+                  return (
+                    <td className="text-center" width="1%">
+                      {notesInScale.has(note) ? note : ""}
+                    </td>
+                  );
+                })}
+              </tr>
+            </thead>
+          );
+        })}
+      </Table>
+
+      <Table bordered>
+        {fretNumbers.map(function (_, index) {
+          return (
+            <td className="text-center" width="1%">
+              {index + 1}
+            </td>
+          );
+        })}
+      </Table>
+    </div>
   );
 };
 
@@ -57,7 +70,19 @@ const nextNoteMap = new Map<string, string>([
   ["D#", "E"],
 ]);
 
-function scaleNotes(root: string, scaleSteps: number[]) {
+function getNotesInString(string: string, stringLength: number): string[] {
+  const startingNote = nextNoteMap.get(string) as string;
+  let res = [startingNote];
+
+  for (let i = 0; i < stringLength - 1; i++) {
+    const lastNote = res[res.length - 1];
+    const nextNote = nextNoteMap.get(lastNote) as string;
+    res.push(nextNote);
+  }
+  return res;
+}
+
+function getNotesInScale(root: string, scaleSteps: number[]) {
   const notes = [root];
 
   for (let i = 0; i < scaleSteps.length; i++) {
@@ -69,18 +94,6 @@ function scaleNotes(root: string, scaleSteps: number[]) {
   }
   let result = new Set(notes);
   return result;
-}
-
-function guitarString(string: string, stringLength: number): string[] {
-  const startingNote = nextNoteMap.get(string) as string;
-  let res = [startingNote];
-
-  for (let i = 0; i < stringLength - 1; i++) {
-    const lastNote = res[res.length - 1];
-    const nextNote = nextNoteMap.get(lastNote) as string;
-    res.push(nextNote);
-  }
-  return res;
 }
 
 export default FretBoard;
