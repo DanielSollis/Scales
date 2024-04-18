@@ -31,7 +31,13 @@ const FretBoard = function (props: props) {
                 {currentString.map(function (note) {
                   const notesInScale = getNotesInScale(props.root, scaleSteps);
                   return (
-                    <td className="text-center" width="1%">
+                    <td
+                      className="text-center light"
+                      style={{
+                        backgroundColor: props.root === note ? "blue" : "",
+                        width: "1%",
+                      }}
+                    >
                       {notesInScale.has(note) ? note : ""}
                     </td>
                   );
