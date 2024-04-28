@@ -18,7 +18,8 @@ interface props {
 
 const FretBoard = function (props: props) {
   const scaleSteps = scalePattern.get(props.scale) as number[];
-  const fretNumbers = [...Array(props.stringLength)];
+  const fretNumbers = Array.from(Array(props.stringLength));
+  console.log(fretNumbers);
 
   return (
     <div>
@@ -30,11 +31,12 @@ const FretBoard = function (props: props) {
               <tr>
                 {currentString.map(function (note) {
                   const notesInScale = getNotesInScale(props.root, scaleSteps);
+                  const rootColor = props.root === note ? "blue" : "";
                   return (
                     <td
-                      className="text-center light"
+                      className="text-center"
                       style={{
-                        backgroundColor: props.root === note ? "blue" : "",
+                        backgroundColor: rootColor,
                         width: "1%",
                       }}
                     >
@@ -49,10 +51,10 @@ const FretBoard = function (props: props) {
       </Table>
 
       <Table bordered>
-        {fretNumbers.map(function (_, index) {
+        {fretNumbers.map(function (_, fretInx) {
           return (
             <td className="text-center" width="1%">
-              {index + 1}
+              {fretInx + 1}
             </td>
           );
         })}
