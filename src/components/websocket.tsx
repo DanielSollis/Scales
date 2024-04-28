@@ -9,8 +9,8 @@ const Connect = function () {
     console.log("connection successfull");
   };
 
-  socket.onmessage = function () {
-    console.log("message");
+  socket.onmessage = function (msg: Event) {
+    console.log("message", msg);
   };
 
   socket.onclose = function () {
