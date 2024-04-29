@@ -1,4 +1,4 @@
-module guitar
+module scales
 
 go 1.22
 
