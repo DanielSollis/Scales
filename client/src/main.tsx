@@ -3,15 +3,12 @@ import Container from "react-bootstrap/Container";
 import ReactDOM from "react-dom/client";
 import FretBoard from "./components/FretBoard.tsx";
 import ScaleDropdowns from "./components/ScaleDropdowns.tsx";
-import { Connect, SocketButton } from "./components/websocket.tsx";
 import "bootstrap/dist/css/bootstrap.css";
 
 const App = function () {
   const [startingRoot, setRoot] = useState("C");
   const [startingScale, setScale] = useState("Major");
   const [stringLength, setStringLength] = useState(12);
-
-  Connect();
 
   return (
     <React.StrictMode>
@@ -29,8 +26,6 @@ const App = function () {
           setScale={setScale}
           setStringLength={setStringLength}
         ></ScaleDropdowns>
-
-        {/* <SocketButton></SocketButton> */}
       </Container>
     </React.StrictMode>
   );
