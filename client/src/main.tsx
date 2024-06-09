@@ -30,7 +30,7 @@ const App = function () {
           setStringLength={setStringLength}
         ></ScaleDropdowns>
 
-        <SocketButton></SocketButton>
+        {/* <SocketButton></SocketButton> */}
       </Container>
     </React.StrictMode>
   );
